@@ -34,6 +34,14 @@ describe Game do
       game.roll(5)
       expect(game.score_per_frame).to eq [5, 8]
     end
+
+    it 'calculates the total score' do
+      game.roll(3)
+      game.roll(5)
+      game.roll(1)
+      game.roll(5)
+      expect(game.score).to eq 14
+    end
     # it "should return a spare if first and second ball in frame knocked down all 10 pins"
 
     # end
