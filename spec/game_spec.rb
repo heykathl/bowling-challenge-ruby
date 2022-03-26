@@ -14,6 +14,13 @@ describe Game do
       expect(game.pins_per_roll).to eq [2]
     end
 
-    
+    it "stores the ko'd pins of the second rolled ball within the first frame" do
+      game.roll(2)
+      game.roll(3)
+      expect(game.pins_per_roll).to eq [2,3]
+      expect(game.pins_per_roll[1]).to eq 3
+    end
+
+
   end
 end
