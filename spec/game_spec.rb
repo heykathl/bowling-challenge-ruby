@@ -35,16 +35,29 @@ describe Game do
       expect(game.score_per_frame).to eq [5, 8]
     end
 
+  # As a player,
+  # So that we can determine a winner
+  # I would like to calculate the total score of all the pins I've knocked down
     it 'calculates the total score' do
       game.roll(3)
       game.roll(5)
-      game.roll(1)
-      game.roll(5)
-      expect(game.score).to eq 14
+      expect(game.score).to eq 8
     end
-    # it "should return a spare if first and second ball in frame knocked down all 10 pins"
+  end
 
-    # end
+  # As a player,
+  # So that everyone has had an equal chance of playing
+  # Every game should only have 10 frames
+  context "game over" do
+
+    it "raise error when attempt to roll past 10 frames" do
+      20.times do 
+        game.roll(2)
+      end
+      expect{ game.roll(2) }.to raise_error "10 frames done"
+    end
 
   end
+
+
 end
