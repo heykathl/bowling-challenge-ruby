@@ -1,26 +1,37 @@
 # frozen_string_literal: true
 
 class Game
-  attr_reader :pins_per_roll, :pins_per_frame, :score
+  attr_reader :fallen_pins, :total_score
 
   def initialize
-    @pins_per_roll = []
-    @pins_per_frame = []
-    @score = 0
+    @fallen_pins = []
+    @total_score = 0
   end
 
-  def roll(pins)
-    raise "10 frames done" if game_over?
-    @pins_per_roll << pins
-    @score += pins
+  def roll(first_roll, second_roll)
+      raise "10 frames done" if frames_full?
+      @fallen_pins << [first_roll, second_roll]
+  end
+
+  def score
+    @fallen_pins.map.with_index do |frame, index|
+      if frame[0] == 10 #strike
+        @fallen_pins[index] = [frame[0], (@fallen_pins[index + 1].sum)]
+      elsif frame[0] != 10 && frame.sum == 10 #spare
+        @fallen_pins[index] = [frame[0], (frame[1] + (@fallen_pins[index + 1][0]))]
+      end
+    end
+    @total_score += @fallen_pins.flatten.inject(:+)
   end
 
   def score_per_frame
-    @pins_per_frame = @pins_per_roll.each_slice(2).map {|num| num.inject(:+) }
+    @score_per_frame = @pins_per_roll.each_slice(2).map {|num| num.inject(:+) }
   end
 
-  def game_over?
-    @pins_per_roll.count == 20 && score_per_frame.count == 10
+  def frames_full?
+    @fallen_pins.count == 10
   end
+
+
 
 end
