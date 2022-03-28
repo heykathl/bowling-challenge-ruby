@@ -26,8 +26,6 @@ class Game
     total_score
   end
 
-  
-
  private
 
   def total_score
