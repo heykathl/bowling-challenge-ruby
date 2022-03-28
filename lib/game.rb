@@ -15,25 +15,31 @@ class Game
 
   def score
     @fallen_pins.map.with_index do |frame, index|
-      if frame[0] == 10 #strike
+      if strike?(frame)
         @fallen_pins[index] = [frame[0], (@fallen_pins[index + 1].sum)]
-      elsif frame[0] != 10 && frame.sum == 10 #spare
+      elsif spare?(frame)
         @fallen_pins[index] = [frame[0], (frame[1] + (@fallen_pins[index + 1][0]))]
       end
     end
     @total_score += @fallen_pins.flatten.inject(:+)
   end
 
-  def score_per_frame
-    @score_per_frame = @pins_per_roll.each_slice(2).map {|num| num.inject(:+) }
-  end
+ private
 
   def frames_full?
     @fallen_pins.count == 10
   end
 
-  
+  def strike?(frame)
+    frame[0] == 10
+  end
 
+  def spare?(frame)
+    frame[0] != 10 && frame.sum == 10 
+  end
 
+  # def score_per_frame
+  #   @score_per_frame = @pins_per_roll.each_slice(2).map {|num| num.inject(:+) }
+  # end
 
 end
