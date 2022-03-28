@@ -9,8 +9,8 @@ class Game
   end
 
   def roll(first_roll, second_roll)
-      raise "10 frames done" if frames_full?
-      @fallen_pins << [first_roll, second_roll]
+    raise "10 frames done" if frames_full?
+    @fallen_pins << [first_roll, second_roll]
   end
 
   def score
@@ -21,10 +21,16 @@ class Game
         @fallen_pins[index] = [frame[0], (frame[1] + (@fallen_pins[index + 1][0]))]
       end
     end
-    @total_score += @fallen_pins.flatten.inject(:+)
+    total_score
   end
 
+  
+
  private
+
+  def total_score
+    @total_score += @fallen_pins.flatten.inject(:+)
+  end
 
   def frames_full?
     @fallen_pins.count == 10
