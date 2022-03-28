@@ -32,6 +32,8 @@ class Game
     @fallen_pins.count == 10
   end
 
+  
+
 
 
 end

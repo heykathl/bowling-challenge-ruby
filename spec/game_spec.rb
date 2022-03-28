@@ -9,8 +9,8 @@ describe Game do
     7.times do
       game.roll(2, 2)
     end
-    game.roll(2, 10)
-    game.roll(10, 2)
+    game.roll(0, 10)
+    game.roll(10, 0)
     game.roll(2, 2)
   end
   # As a player,
@@ -19,7 +19,7 @@ describe Game do
   context "store ko'd pins" do
 
     it "stores the ko'd pins of the first rolled ball within the first frame" do
-      expect(game.fallen_pins).to eq [[2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [2, 10], [10, 2],[2, 2]]
+      expect(game.fallen_pins).to eq [[2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [2, 2], [0, 10], [10, 0],[2, 2]]
     end
 
   end
@@ -36,16 +36,13 @@ describe Game do
   end
 
   # As a player,
-  # I have rolled a strike
+  # I have rolled a strike and spare
   # Therefore I would like the appropriate points and bonuses added to the tally
   context "scoring tally" do
 
-    it "calculates appropriate points for a strike" do
-      expect(game.total_score).to eq 29
+    it "calculates appropriate points for a strike and spare" do
+      expect(game.score).to eq 66
     end
-  end
 
-  # As a player,
-  # I have rolled a spare
-  # Therefore I would like the appropriate points and bonuses added to the tally
+  end
 end
