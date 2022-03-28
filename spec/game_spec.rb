@@ -28,23 +28,22 @@ describe Game do
   # So that everyone has had an equal chance of playing
   # Every game should only have 10 frames (unless there are bonus rounds)
   context "game over" do
-    before do
+      
+    it "raise error when attempt to roll past 10 frames" do
       7.times do
         game.roll(2, 2)
       end
       game.roll(0, 10)
       game.roll(10, 0)
       game.roll(2, 2)
-    end
-
-    it "raise error when attempt to roll past 10 frames" do
+      
       expect{ game.roll(2, 5) }.to raise_error "10 frames done"
     end
 
   end
 
   # As a player,
-  # I have rolled a strike and spare
+  # I have rolled a strike 
   # Therefore I would like the appropriate points and bonuses added to the tally
   context "scoring tally" do
 
@@ -59,6 +58,20 @@ describe Game do
       expect(game.score).to eq 51
     end
 
+    it "calculates appropriate points for a two strikes" do
+      7.times do
+        game.roll(2, 2)
+      end
+      game.roll(10, 0)
+      game.roll(10, 0)
+      game.roll(2, 2)
+
+      expect(game.score).to eq 66
+    end
+
+  # As a player,
+  # I have rolled a spare
+  # Therefore I would like the appropriate points and bonuses added to the tally
     it "calculates appropriate points for a spare" do
       7.times do
         game.roll(2, 2)

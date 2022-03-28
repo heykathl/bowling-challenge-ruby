@@ -19,6 +19,8 @@ class Game
         @fallen_pins[index] = [frame[0], (@fallen_pins[index + 1].sum)]
       elsif spare?(frame)
         @fallen_pins[index] = [frame[0], (frame[1] + (@fallen_pins[index + 1][0]))]
+      elsif double_strike?(frame)
+        @fallen_pins[index] = [frame[0], ((@fallen_pins[index + 1][0]) + (@fallen_pins[index + 2][0]))]
       end
     end
     total_score
@@ -44,6 +46,9 @@ class Game
     frame[0] != 10 && frame.sum == 10 
   end
 
+  def double_strike?(frame)
+    frame[0] == 10 && @fallen_pins[index + 1][0] == 10
+  end
   # def score_per_frame
   #   @score_per_frame = @pins_per_roll.each_slice(2).map {|num| num.inject(:+) }
   # end
