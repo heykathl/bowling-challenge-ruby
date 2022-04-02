@@ -56,8 +56,6 @@ More about ten pin bowling here: http://en.wikipedia.org/wiki/Ten-pin_bowling
 
 ![Ten Pin Score Example](images/example_ten_pin_scoring.png)
 
-## User Stories
-
 ## Tests
 There are a series of tests which can be run with the following (from the directory):
 ```
